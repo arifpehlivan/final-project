@@ -1,4 +1,4 @@
-import { Pool, pool } from 'pg';
+import { Pool } from 'pg';
 const pool = new Pool({
     host: 'localhost',
     port: '5432',
@@ -6,4 +6,6 @@ const pool = new Pool({
     password: '1020',
     database: 'fac'
 
-})
+});
+
+module.exports = pool;

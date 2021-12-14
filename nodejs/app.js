@@ -17,9 +17,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 //Routes
-app.get('/', (req, res) =>{
-    res.send('Hello World');
-});
+app.use('/', require('./routes/auth.routes'));
 
 
 //Settings
