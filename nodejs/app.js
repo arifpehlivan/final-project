@@ -19,6 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Routes
 app.use('/', require('./routes/auth.routes'));
 app.use('/admin', require('./routes/admin.routes'));
+app.use('/edit', require('./routes/edit.routes'));
 
 
 //Settings
