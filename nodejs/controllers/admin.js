@@ -64,4 +64,16 @@ admin.deleteFactory = async (req, res) => {
     }
 }
 
+admin.getFactoryList = async (req, res) => {
+    try {
+        const f_list = await (await pool.query('SELECT * FROM f_list ')).rows;
+        res.status(200).json(f_list);
+    } catch (error) {
+        res.status(500).json({
+            message: 'An error has ocurred',
+            error
+        })
+    }
+}
+
 module.exports = admin;
