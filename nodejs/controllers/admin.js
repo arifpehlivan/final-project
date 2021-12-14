@@ -49,4 +49,19 @@ admin.updateFactoryList = async (req, res)=>{
     }
 }
 
+admin.deleteFactory = async (req, res) => {
+    const id = req.params.id_f;
+    try {
+        await pool.query('DELETE FROM f_list WHERE id_f=$1', [id]);
+        res.status(200).json({
+            message: 'Successful deleted factory'
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: 'An error has ocurred',
+            error
+        })
+    }
+}
+
 module.exports = admin;

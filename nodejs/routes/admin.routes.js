@@ -9,4 +9,6 @@ router.get('/factorylist/:id_f', admin.readFactoryList);
 
 router.put('/factorylist/:id_f', admin.updateFactoryList);
 
+router.delete('/factorylist/:id_f', admin.deleteFactory);
+
 module.exports = router;
