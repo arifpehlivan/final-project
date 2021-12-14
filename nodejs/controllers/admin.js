@@ -19,4 +19,17 @@ admin.addFactory = async (req, res) =>{
     }
 }
 
+admin.readFactoryList = async (req, res) => {
+    const id = req.params.id_f;
+    try {
+        const f_list = await (await pool.query('SELECT * FROM f_list WHERE id_f=$1', [id])).rows[0];
+        res.status(200).json({f_list});
+    } catch (error) {
+        res.status(500).json({
+            message: 'An error has ocurred',
+            error
+        })
+    }
+}
+
 module.exports = admin;

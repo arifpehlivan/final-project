@@ -5,4 +5,6 @@ const router = express.Router();
 
 router.post('/addfactory', admin.addFactory);
 
+router.get('/factorylist/:id_f', admin.readFactoryList);
+
 module.exports = router;
