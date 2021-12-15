@@ -68,10 +68,9 @@
               <v-radio label="Editor" value="edit"></v-radio>
               </v-radio-group>
               <div class="ma-3">
-                <input type="checkbox" id="checkbox" v-model="checked">
+                <input type="checkbox" id="checkbox" >
                 <label for="checkbox"> Remember Me</label>
               </div>
-              
               <v-btn block class="success mt-3" type="submit">Sign In</v-btn>
             </v-form>
           </v-card-text>
@@ -135,7 +134,8 @@
                 message: res.data.message
               }
             } else {
-              sessionStorage.setItem('session', JSON.stringfy(res.data));
+              sessionStorage.setItem('session', JSON.stringify(res.data));
+              this.$router.push('/profile');
               this.alert = {
                 shhow: true,
                 type: 'success',
@@ -146,7 +146,7 @@
             this.alert = {
               show: true,
               type: 'error',
-              message: error.response.data.message
+              message: error
             }
           }
         }
