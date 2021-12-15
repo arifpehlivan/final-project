@@ -1,5 +1,8 @@
 <template>
   <v-container>
+    <v-app-bar app color="primary" dark>
+      <v-toolbar-title>NODE VUE</v-toolbar-title>
+    </v-app-bar>
     <v-alert text v-model="alert.show" :type="alert.type" dismissible>{{ alert.message}}</v-alert>
     <v-row justify="center">
       <v-col class="text-center" md="2" sm="2" >
