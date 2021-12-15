@@ -67,6 +67,11 @@
               <v-radio label="Admin" value="admin"></v-radio>
               <v-radio label="Editor" value="edit"></v-radio>
               </v-radio-group>
+              <div class="ma-3">
+                <input type="checkbox" id="checkbox" v-model="checked">
+                <label for="checkbox"> Remember Me</label>
+              </div>
+              
               <v-btn block class="success mt-3" type="submit">Sign In</v-btn>
             </v-form>
           </v-card-text>
@@ -77,8 +82,6 @@
 </template>
 
 <script>
-  
-
   export default {
     data: () => ({
       alert: { show: false, message: ''},
@@ -110,6 +113,34 @@
               show: true,
               type: 'success',
               message: res.data.message
+            }
+          } catch (error) {
+            this.alert = {
+              show: true,
+              type: 'error',
+              message: error.response.data.message
+            }
+          }
+        }
+      },
+      async signin(){
+        let valid = this.$refs.signinForm.validate();
+        if(valid){
+          try {
+            const res = await this.axios.post('/signin', this.user);
+            if(res.data.NotFound){
+              this.alert = {
+                shhow: true,
+                type: 'error',
+                message: res.data.message
+              }
+            } else {
+              sessionStorage.setItem('session', JSON.stringfy(res.data));
+              this.alert = {
+                shhow: true,
+                type: 'success',
+                message: 'Welcome'
+              }
             }
           } catch (error) {
             this.alert = {
