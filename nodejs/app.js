@@ -2,7 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import path from 'path';
-
+import history from 'connect-history-api-fallback';
 
 const app = express();
 
