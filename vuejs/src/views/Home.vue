@@ -16,19 +16,22 @@
             <v-form class="ma-3">
               <v-text-field
               label="Name"
-              prepend-icon="mdi-account">
+              prepend-icon="mdi-account"
+              :rules="nameRules">
               </v-text-field>
               <v-text-field
               label="Email"
-              prepend-icon="mdi-email">
+              prepend-icon="mdi-email"
+              :rules="emailRules">
               </v-text-field>
               <v-text-field
               label="Password"
               prepend-icon="mdi-lock"
-              type="password">
+              type="password"
+              :rules="passwordRules">
               </v-text-field>
             </v-form>
-            <v-radio-group row>
+            <v-radio-group row :rules="[(v) => !!v || 'Please choose one']">
               <v-radio label="Admin" value="admin"></v-radio>
               <v-radio label="Editor" value="edit"></v-radio>
             </v-radio-group>
@@ -44,6 +47,22 @@
   
 
   export default {
-    
+    data: () => ({
+      nameRules: [
+        value => !!value || 'Name is required',
+        value => (value && value.length >= 8 || 'Name must be more than 8 characters'),
+        
+        ],
+        emailRules: [
+          value => !!value || 'Email is required',
+          value => /.+@.+\..+/.test(value) || "E-mail must be valid"
+        ],
+        passwordRules: [
+          value => !!value || 'Password is required',
+          value => (value && value.length >= 8 || 'Password must be more than 8 charecters')
+        ]
+         
+      
+    })
   }
 </script>
