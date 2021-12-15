@@ -2,16 +2,16 @@
   <v-container>
     <v-alert text v-model="alert.show" :type="alert.type" dismissible>{{ alert.message}}</v-alert>
     <v-row justify="center">
-      <v-col class="text-center" md="2" sm="2">
-        <v-btn class="primary">sign up</v-btn>
+      <v-col class="text-center" md="2" sm="2" >
+        <v-btn class="primary" @click="suForm=true">sign up</v-btn>
       </v-col>
       <v-col class="text-center"  md="2" sm="2">
-        <v-btn class="success">sign in</v-btn>
+        <v-btn class="success"  @click="suForm=false">sign in</v-btn>
       </v-col>
     </v-row>
     <v-row justify="center">
       <v-col md="6" sm="6">
-        <v-card>
+        <v-card v-if="suForm">
           <v-card-title>Sign Up</v-card-title>
           <v-card-text>
             <v-form class="ma-3" @submit.prevent="signup()" ref="signupForm">
@@ -44,6 +44,33 @@
             </v-form>
           </v-card-text>
         </v-card>
+        <v-card v-else>
+          <v-card-title>Sign In</v-card-title>
+          <v-card-text>
+            <v-form class="ma-3" @submit.prevent="signin()" ref="signinForm">
+              <v-text-field
+              label="Email"
+              prepend-icon="mdi-email"
+              :rules="emailRules"
+              v-model="user.email">
+              </v-text-field>
+              <v-text-field
+              label="Password"
+              prepend-icon="mdi-lock"
+              type="password"
+              :rules="passwordRules"
+              v-model="user.password">
+              </v-text-field>
+              <v-radio-group row 
+              v-model="user.role"
+              :rules="[(v) => !!v || 'Please choose one']">
+              <v-radio label="Admin" value="admin"></v-radio>
+              <v-radio label="Editor" value="edit"></v-radio>
+              </v-radio-group>
+              <v-btn block class="success mt-3" type="submit">Sign In</v-btn>
+            </v-form>
+          </v-card-text>
+        </v-card>
       </v-col>
     </v-row>
   </v-container> 
@@ -68,7 +95,8 @@
           value => !!value || 'Password is required',
           value => (value && value.length >= 8 || 'Password must be more than 8 charecters')
         ],
-        user: {name: '', email: '', password: '', role: ''}
+        user: {name: '', email: '', password: '', role: ''},
+        suForm: true
     }),
     methods: {
       async signup(){
@@ -87,7 +115,7 @@
             this.alert = {
               show: true,
               type: 'error',
-              message: res.data.message
+              message: error.response.data.message
             }
           }
         }
